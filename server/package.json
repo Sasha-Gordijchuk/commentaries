@@ -1,9 +1,17 @@
 {
   "type": "module",
   "dependencies": {
-    "express": "^4.18.2"
+    "express": "^4.18.2",
+    "mysql2": "^2.3.3",
+    "pg": "^8.8.0",
+    "pg-hstore": "^2.3.4",
+    "sequelize": "^6.26.0",
+    "sqlite3": "^5.1.2"
   },
   "scripts": {
     "start": "node main.js"
+  },
+  "devDependencies": {
+    "@mate-academy/eslint-config": "0.0.20"
   }
 }
