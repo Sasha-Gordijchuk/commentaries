@@ -27,9 +27,7 @@ export class User extends Model {
     await User.create(user);
   };
 
-  async remove(userId) {
-    console.log(`ID ====== ${userId}`);
-
+  static async remove(userId) {
     await User.destroy({
       where: {
         id: userId,

@@ -1,10 +1,56 @@
-/* eslint-disable no-console */
 import { User } from '../models/userModel.js';
 
-export const getAllUsers = async() => {
-  const result = await User.findAll();
+export const getAll = async(req, res) => {
+  const result = await User.getAll();
 
-  console.log(result);
+  res.send(result);
+};
 
-  return result;
+export const getById = async(req, res) => {
+  const { userId } = req.params;
+  const findedUser = await User.findByPk(userId);
+
+  if (!findedUser) {
+    res.sendStatus(404);
+
+    return;
+  }
+
+  res.send(findedUser);
+};
+
+export const create = (req, res) => {
+  const { name, email, homepage } = req.body;
+
+  if (!name || !email) {
+    res.sendStatus(422);
+
+    return;
+  }
+
+  const newUser = {
+    name,
+    email,
+    homepage,
+  };
+
+  User.create(newUser);
+
+  res.statusCode = 201;
+  res.send(newUser);
+};
+
+export const remove = async(req, res) => {
+  const { userId } = req.params;
+  const findedUser = await User.findByPk(userId);
+
+  if (!findedUser) {
+    res.sendStatus(404);
+
+    return;
+  }
+
+  await User.remove(userId);
+
+  res.sendStatus(204);
 };
