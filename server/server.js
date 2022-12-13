@@ -3,36 +3,18 @@ import express from 'express';
 import cors from 'cors';
 import { User } from './models/userModel.js';
 import { Comment } from './models/commentModel.js';
-import * as userController from './controllers/userController.js';
-import * as commentController from './controllers/commentConroller.js';
+import { router as userRouter } from './routes/userRoutes.js';
+import { router as commentRouter } from './routes/commentRoutes.js';
 
 export function createServer() {
   const app = express();
 
   app.use(cors());
+  app.use('/users', userRouter);
+  app.use('/comments', commentRouter);
 
   User.createTable();
   Comment.createTable();
-
-  app.get('/', (req, res) => {
-    res.end('Hello World');
-  });
-
-  app.get('/users', userController.getAll);
-
-  app.get('/users/:userId', userController.getById);
-
-  app.post('/users', express.json(), userController.create);
-
-  app.delete('/users/:userId', userController.remove);
-
-  app.get('/comments', commentController.getAll);
-
-  app.get('/comments/:commentId', commentController.getOne);
-
-  app.post('/comments', express.json(), commentController.create);
-
-  app.delete('/comments/:commentId', commentController.remove);
 
   return app;
 };
