@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
+import { HeadComment } from '../../types/headComment';
 import { Comment } from '../../types/comment';
 import { User } from '../../types/user';
 import * as userApi from '../../api/users';
 
 interface Props {
-  comment: Comment,
+  comment: Comment | HeadComment,
 }
 
 const userPlaceholder: User = {

@@ -1,41 +1,25 @@
+/* eslint-disable max-len */
 /* eslint-disable no-console */
 import React, { useEffect, useState } from 'react';
-import * as userApi from './api/users';
-import * as commentApi from './api/comments';
+import * as headCommentApi from './api/headComments';
 import 'bulma/css/bulma.css';
 import './App.css';
-import { User } from './types/user';
-import { Comment } from './types/comment';
 import { HeadCommentsList } from './components/HeadCommentsList';
+import { HeadComment } from './types/headComment';
 
 export const App: React.FC = () => {
-  const [usersFromServer, setUsersFromServer] = useState<User[]>([]);
-  const [commentsFromServer, setCommentsFromServer] = useState<Comment[]>([]);
+  const [commentsFromServer, setCommentsFromServer] = useState<HeadComment[]>([]);
 
-  const loadUsers = async () => {
-    const users = await userApi.getAll();
-
-    setUsersFromServer(users.data);
-  };
-
-  const loadComments = async () => {
-    const comments = await commentApi.getAll();
+  const loadHeadComments = async () => {
+    const comments = await headCommentApi.getAll();
 
     setCommentsFromServer(comments.data);
   };
 
-  // const addComment = (data: unknown) => {
-  //   console.log('addComment');
-
-  //   commentApi.add(data);
-  // };
-
   useEffect(() => {
-    loadUsers();
-    loadComments();
+    loadHeadComments();
   }, []);
 
-  console.log(usersFromServer);
   console.log(commentsFromServer);
 
   return (

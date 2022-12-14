@@ -7,16 +7,15 @@ export const getAll = () => {
   return axios.get<Comment[]>(`${BASE_URL}/comments`);
 };
 
+export const getAllByHeadComment = (commentId: string) => {
+  return axios.get<Comment[]>(`${BASE_URL}/comments/byHead/${commentId}`);
+};
+
 export const getById = (commentId: string) => {
   return axios.get<Comment>(`${BASE_URL}/comments/${commentId}`);
 };
 
 export const add = (data: unknown) => {
-  // eslint-disable-next-line no-console
-  console.log('add');
-  // eslint-disable-next-line no-console
-  console.log(data);
-
   return axios.post<Comment>(`${BASE_URL}/comments`, data);
 };
 

@@ -36,9 +36,9 @@ export const getOne = async(req, res) => {
 };
 
 export const create = (req, res) => {
-  const { text, userId } = req.body;
+  const { text, userId, headCommentId } = req.body;
 
-  if (!text || !userId) {
+  if (!text || !userId || !headCommentId) {
     res.sendStatus(422);
 
     return;
@@ -47,6 +47,7 @@ export const create = (req, res) => {
   const newComment = {
     text,
     userId,
+    headCommentId,
   };
 
   Comment.add(newComment);

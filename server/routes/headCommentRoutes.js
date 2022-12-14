@@ -1,12 +1,13 @@
 import express from 'express';
-import * as commentController from '../controllers/commentController.js';
+// eslint-disable-next-line max-len
+import * as headCommentController from '../controllers/headCommentController.js';
 
 export const router = express.Router();
 
-router.get('/', commentController.getAll);
+router.get('/', headCommentController.getAll);
 
-router.get('/:commentId', commentController.getOne);
+router.get('/:commentId', headCommentController.getOne);
 
-router.post('/', express.json(), commentController.create);
+router.post('/', express.json(), headCommentController.create);
 
-router.delete('/:commentId', commentController.remove);
+router.delete('/:commentId', headCommentController.remove);
