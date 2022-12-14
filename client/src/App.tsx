@@ -6,9 +6,11 @@ import 'bulma/css/bulma.css';
 import './style.css';
 import { HeadCommentsList } from './components/HeadCommentsList';
 import { HeadComment } from './types/headComment';
+import { AddComment } from './components/AddComment';
 
 export const App: React.FC = () => {
   const [commentsFromServer, setCommentsFromServer] = useState<HeadComment[]>([]);
+  const [addingFormIsVisible, setAddingFormIsVisible] = useState<boolean>(false);
 
   const loadHeadComments = async () => {
     const comments = await headCommentApi.getAll();
@@ -16,15 +18,32 @@ export const App: React.FC = () => {
     setCommentsFromServer(comments.data);
   };
 
+  const handleClick = () => {
+    console.log('click');
+
+    setAddingFormIsVisible(!addingFormIsVisible);
+  };
+
   useEffect(() => {
     loadHeadComments();
   }, []);
 
+  console.log(addingFormIsVisible);
+
   return (
     <div className="App">
+      <button onClick={() => handleClick()} type="button">Add Comment</button>
+
       <HeadCommentsList
         comments={commentsFromServer}
       />
+
+      {addingFormIsVisible && (
+        <AddComment
+          headCommentId={null}
+          setAddingFormIsVisible={setAddingFormIsVisible}
+        />
+      )}
     </div>
   );
 };

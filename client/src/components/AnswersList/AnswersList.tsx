@@ -14,9 +14,6 @@ export const AnswersList: React.FC<Props> = ({ commentId }) => {
   const loadAnswers = async (id: string) => {
     const answers = await commentsApi.getAllByHeadComment(id);
 
-    console.log('===================');
-    console.log(answers.data);
-
     setAnswersFromServer(answers.data);
   };
 
