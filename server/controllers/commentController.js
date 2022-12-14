@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { Comment } from '../models/commentModel.js';
 
 export const getAll = async(req, res) => {
@@ -7,17 +8,9 @@ export const getAll = async(req, res) => {
 };
 
 export const getAllByHeadComment = async(req, res) => {
-  const { commentId } = req.params;
+  const { headCommentId } = req.params;
 
-  const findedComment = await Comment.getById(commentId);
-
-  if (!findedComment) {
-    res.sendStatus(404);
-
-    return;
-  }
-
-  const result = await Comment.getAllByHeadComment(commentId);
+  const result = await Comment.getAllByHeadComment(headCommentId);
 
   res.send(result);
 };

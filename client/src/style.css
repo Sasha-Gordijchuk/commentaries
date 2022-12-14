@@ -1,0 +1,26 @@
+.App {
+  padding: 50px;
+  background-color: #d1d1da;
+
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+}
+
+.commentsBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.card {
+  margin-left: 50px;
+}
+
+.card:first-child {
+  margin-left: 0;
+}
+
+.media {
+  border-bottom: 2px solid #9f9faa;
+}

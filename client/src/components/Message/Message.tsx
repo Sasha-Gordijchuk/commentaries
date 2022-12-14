@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { HeadComment } from '../../types/headComment';
-import { Comment } from '../../types/comment';
 import { User } from '../../types/user';
 import * as userApi from '../../api/users';
 
 interface Props {
-  comment: Comment | HeadComment,
+  text: string;
+  userId: string;
 }
 
 const userPlaceholder: User = {
@@ -15,12 +14,11 @@ const userPlaceholder: User = {
   homepage: 'johndoe.com',
 };
 
-export const Message: React.FC<Props> = ({ comment }) => {
-  const { userId, text } = comment;
+export const Message: React.FC<Props> = ({ text, userId }) => {
   const [userInfo, setUserInfo] = useState<User>(userPlaceholder);
 
-  const loadUser = async (id: string) => {
-    const findedUser = await userApi.getById(id);
+  const loadUser = async (user: string) => {
+    const findedUser = await userApi.getById(user);
 
     setUserInfo(findedUser.data);
   };

@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import * as headCommentApi from './api/headComments';
 import 'bulma/css/bulma.css';
-import './App.css';
+import './style.css';
 import { HeadCommentsList } from './components/HeadCommentsList';
 import { HeadComment } from './types/headComment';
 
@@ -19,8 +19,6 @@ export const App: React.FC = () => {
   useEffect(() => {
     loadHeadComments();
   }, []);
-
-  console.log(commentsFromServer);
 
   return (
     <div className="App">
