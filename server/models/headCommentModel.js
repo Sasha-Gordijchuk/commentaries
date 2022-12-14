@@ -1,58 +1,54 @@
-/* eslint-disable no-console */
 import { DataTypes, Model } from 'sequelize';
 import { sequelize } from '../utils/db.js';
 
-export class User extends Model {
+export class HeadComment extends Model {
   static async createTable() {
     try {
-      await User.sync({ alter: true });
+      await HeadComment.sync({ alter: true });
     } catch (error) {
+      // eslint-disable-next-line no-console
       console.error(error);
     }
   };
 
   static async getAll() {
-    const result = await User.findAll();
+    const result = await HeadComment.findAll();
 
     return result;
   };
 
   static async getById(id) {
-    const result = await User.findByPk(id);
+    const result = await HeadComment.findByPk(id);
 
     return result;
   };
 
-  static async add(user) {
-    await User.create(user);
+  static async add(comment) {
+    await HeadComment.create(comment);
   };
 
-  static async remove(userId) {
-    await User.destroy({
+  static async remove(commentId) {
+    await HeadComment.destroy({
       where: {
-        id: userId,
+        id: commentId,
       },
     });
   }
 }
 
-User.init({
+HeadComment.init({
   id: {
     type: DataTypes.UUID,
     primaryKey: true,
     defaultValue: DataTypes.UUIDV4,
   },
-  name: {
-    type: DataTypes.STRING,
+  text: {
+    type: DataTypes.TEXT,
     allowNull: false,
   },
-  email: {
-    type: DataTypes.STRING,
+  userId: {
+    type: DataTypes.UUID,
     allowNull: false,
-  },
-  homepage: {
-    type: DataTypes.STRING,
-    allowNull: true,
   },
 }, {
   sequelize,

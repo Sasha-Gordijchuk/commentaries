@@ -1,30 +1,14 @@
-import { Comment } from '../models/commentModel.js';
+import { HeadComment } from '../models/headCommentModel.js';
 
 export const getAll = async(req, res) => {
-  const result = await Comment.getAll();
-
-  res.send(result);
-};
-
-export const getAllByHeadComment = async(req, res) => {
-  const { commentId } = req.params;
-
-  const findedComment = await Comment.getById(commentId);
-
-  if (!findedComment) {
-    res.sendStatus(404);
-
-    return;
-  }
-
-  const result = await Comment.getAllByHeadComment(commentId);
+  const result = await HeadComment.getAll();
 
   res.send(result);
 };
 
 export const getOne = async(req, res) => {
   const { commentId } = req.params;
-  const findedComment = await Comment.getById(commentId);
+  const findedComment = await HeadComment.getById(commentId);
 
   if (!findedComment) {
     res.sendStatus(404);
@@ -49,7 +33,7 @@ export const create = (req, res) => {
     userId,
   };
 
-  Comment.add(newComment);
+  HeadComment.add(newComment);
 
   res.statusCode = 201;
   res.send(newComment);
@@ -57,7 +41,7 @@ export const create = (req, res) => {
 
 export const remove = async(req, res) => {
   const { commentId } = req.params;
-  const findedComment = await Comment.getById(commentId);
+  const findedComment = await HeadComment.getById(commentId);
 
   if (!findedComment) {
     res.sendStatus(404);
@@ -65,7 +49,7 @@ export const remove = async(req, res) => {
     return;
   }
 
-  await Comment.destroy(commentId);
+  await HeadComment.destroy(commentId);
 
   res.sendStatus(204);
 };

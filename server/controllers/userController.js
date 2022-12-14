@@ -34,7 +34,7 @@ export const create = (req, res) => {
     homepage,
   };
 
-  User.create(newUser);
+  User.add(newUser);
 
   res.statusCode = 201;
   res.send(newUser);
