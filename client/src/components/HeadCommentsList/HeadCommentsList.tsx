@@ -6,7 +6,9 @@ interface Props {
   comments: HeadComment[],
 }
 
-export const HeadCommentsList: React.FC<Props> = ({ comments }) => {
+export const HeadCommentsList: React.FC<Props> = ({
+  comments,
+}) => {
   return (
     <>
       {comments.map(comment => (

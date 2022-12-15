@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { User } from '../models/userModel.js';
 
 export const getAll = async(req, res) => {
@@ -6,9 +7,19 @@ export const getAll = async(req, res) => {
   res.send(result);
 };
 
-export const getById = async(req, res) => {
-  const { userId } = req.params;
-  const findedUser = await User.findByPk(userId);
+export const getOne = async(req, res) => {
+  let { findBy } = req.query;
+  const { userParam } = req.params;
+
+  if (!findBy) {
+    findBy = 'id';
+  }
+
+  const findedUser = await User.findOne({
+    where: {
+      [findBy]: userParam,
+    },
+  });
 
   if (!findedUser) {
     res.sendStatus(404);

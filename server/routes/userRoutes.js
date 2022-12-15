@@ -5,7 +5,7 @@ export const router = express.Router();
 
 router.get('/', userController.getAll);
 
-router.get('/:userId', userController.getById);
+router.get('/:userParam', userController.getOne);
 
 router.post('/', express.json(), userController.create);
 

@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/control-has-associated-label */
 import React, { useEffect, useState } from 'react';
 import { User } from '../../types/user';
 import * as userApi from '../../api/users';
@@ -18,7 +19,7 @@ export const Message: React.FC<Props> = ({ text, userId }) => {
   const [userInfo, setUserInfo] = useState<User>(userPlaceholder);
 
   const loadUser = async (user: string) => {
-    const findedUser = await userApi.getById(user);
+    const findedUser = await userApi.getOne(user);
 
     setUserInfo(findedUser.data);
   };
@@ -33,6 +34,7 @@ export const Message: React.FC<Props> = ({ text, userId }) => {
     <div className="card">
       <div className="card-content">
         <div className="media">
+
           <div className="media-left">
             <figure className="image is-48x48">
               <img
@@ -47,6 +49,7 @@ export const Message: React.FC<Props> = ({ text, userId }) => {
             <p className="title is-4">{userInfo.name}</p>
             <p className="subtitle">{userInfo.email}</p>
           </div>
+          <button type="button" className="delete" />
         </div>
 
         <div className="content">

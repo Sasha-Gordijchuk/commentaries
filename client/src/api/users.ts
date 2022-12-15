@@ -7,8 +7,8 @@ export const getAll = () => {
   return axios.get<User[]>(`${BASE_URL}/users`);
 };
 
-export const getById = (userId: string) => {
-  return axios.get<User>(`${BASE_URL}/users/${userId}`);
+export const getOne = (value: string, param = 'id') => {
+  return axios.get<User>(`${BASE_URL}/users/${value}?findBy=${param}`);
 };
 
 export const add = (data: unknown) => {

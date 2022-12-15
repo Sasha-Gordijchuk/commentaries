@@ -18,21 +18,13 @@ export const App: React.FC = () => {
     setCommentsFromServer(comments.data);
   };
 
-  const handleClick = () => {
-    console.log('click');
-
-    setAddingFormIsVisible(!addingFormIsVisible);
-  };
-
   useEffect(() => {
     loadHeadComments();
   }, []);
 
-  console.log(addingFormIsVisible);
-
   return (
     <div className="App">
-      <button onClick={() => handleClick()} type="button">Add Comment</button>
+      <button onClick={() => setAddingFormIsVisible(true)} type="button">Add Comment</button>
 
       <HeadCommentsList
         comments={commentsFromServer}

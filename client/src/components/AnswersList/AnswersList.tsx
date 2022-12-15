@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /* eslint-disable no-console */
 import React, { useEffect, useState } from 'react';
 import { Comment } from '../../types/comment';
@@ -6,9 +7,10 @@ import { Message } from '../Message';
 
 interface Props {
   commentId: string;
+  addingFormIsVisible: boolean;
 }
 
-export const AnswersList: React.FC<Props> = ({ commentId }) => {
+export const AnswersList: React.FC<Props> = ({ commentId, addingFormIsVisible }) => {
   const [answersFromServer, setAnswersFromServer] = useState<Comment[]>([]);
 
   const loadAnswers = async (id: string) => {
@@ -19,7 +21,7 @@ export const AnswersList: React.FC<Props> = ({ commentId }) => {
 
   useEffect(() => {
     loadAnswers(commentId);
-  }, [commentId]);
+  }, [commentId, addingFormIsVisible]);
 
   return (
     <>
