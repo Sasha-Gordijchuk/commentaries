@@ -1,40 +1,9 @@
 /* eslint-disable no-console */
-import { DataTypes, Model } from 'sequelize';
+import { DataTypes } from 'sequelize';
 import { sequelize } from '../utils/db.js';
+import { General } from './GeneralModel.js';
 
-export class User extends Model {
-  static async createTable() {
-    try {
-      await User.sync({ alter: true });
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  static async getAll() {
-    const result = await User.findAll();
-
-    return result;
-  };
-
-  static async getById(id) {
-    const result = await User.findByPk(id);
-
-    return result;
-  };
-
-  static async add(user) {
-    await User.create(user);
-  };
-
-  static async remove(userId) {
-    await User.destroy({
-      where: {
-        id: userId,
-      },
-    });
-  }
-}
+export class User extends General {}
 
 User.init({
   id: {

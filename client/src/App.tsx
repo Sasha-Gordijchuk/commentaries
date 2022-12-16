@@ -1,5 +1,4 @@
 /* eslint-disable max-len */
-/* eslint-disable no-console */
 import React, { useEffect, useState } from 'react';
 import * as headCommentApi from './api/headComments';
 import 'bulma/css/bulma.css';
@@ -24,7 +23,12 @@ export const App: React.FC = () => {
 
   return (
     <div className="App">
-      <button onClick={() => setAddingFormIsVisible(true)} type="button">Add Comment</button>
+      <button
+        onClick={() => setAddingFormIsVisible(true)}
+        type="button"
+      >
+        Add Comment
+      </button>
 
       <HeadCommentsList
         comments={commentsFromServer}

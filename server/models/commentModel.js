@@ -1,22 +1,8 @@
-import { DataTypes, Model } from 'sequelize';
+import { DataTypes } from 'sequelize';
 import { sequelize } from '../utils/db.js';
+import { General } from './GeneralModel.js';
 
-export class Comment extends Model {
-  static async createTable() {
-    try {
-      await Comment.sync({ alter: true });
-    } catch (error) {
-      // eslint-disable-next-line no-console
-      console.error(error);
-    }
-  };
-
-  static async getAll() {
-    const result = await Comment.findAll();
-
-    return result;
-  };
-
+export class Comment extends General {
   static async getAllByHeadComment(id) {
     const result = await Comment.findAll({
       where: {
@@ -26,24 +12,6 @@ export class Comment extends Model {
 
     return result;
   };
-
-  static async getById(id) {
-    const result = await Comment.findByPk(id);
-
-    return result;
-  };
-
-  static async add(comment) {
-    await Comment.create(comment);
-  };
-
-  static async remove(commentId) {
-    await Comment.destroy({
-      where: {
-        id: commentId,
-      },
-    });
-  }
 }
 
 Comment.init({
