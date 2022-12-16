@@ -49,7 +49,7 @@ export const remove = async(req, res) => {
     return;
   }
 
-  await HeadComment.destroy(commentId);
+  HeadComment.remove(commentId);
 
   res.sendStatus(204);
 };

@@ -59,7 +59,15 @@ export const remove = async(req, res) => {
     return;
   }
 
-  await Comment.destroy(commentId);
+  Comment.remove(commentId);
+
+  res.sendStatus(204);
+};
+
+export const removeAllByHeadComment = (req, res) => {
+  const { headCommentId } = req.params;
+
+  Comment.removeAllByHeadComment(headCommentId);
 
   res.sendStatus(204);
 };

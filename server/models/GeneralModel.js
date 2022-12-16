@@ -24,10 +24,10 @@ export class General extends Model {
     this.create(user);
   };
 
-  static remove(userId) {
+  static remove(id) {
     this.destroy({
       where: {
-        id: userId,
+        id: id,
       },
     });
   };

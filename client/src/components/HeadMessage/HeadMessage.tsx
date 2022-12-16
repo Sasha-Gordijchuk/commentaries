@@ -23,8 +23,10 @@ export const HeadMessage: React.FC<Props> = ({
     <div className="commentsBlock">
 
       <Message
+        id={id}
         text={text}
         userId={userId}
+        isHeadComment
       />
       <div className="commentButtons">
         <button
@@ -49,7 +51,6 @@ export const HeadMessage: React.FC<Props> = ({
       {answersIsVisible && (
         <AnswersList
           commentId={id}
-          addingFormIsVisible={addingFormIsVisible}
         />
       )}
 

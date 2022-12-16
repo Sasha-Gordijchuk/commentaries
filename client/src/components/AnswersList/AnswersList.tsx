@@ -7,10 +7,9 @@ import { Message } from '../Message';
 
 interface Props {
   commentId: string;
-  addingFormIsVisible: boolean;
 }
 
-export const AnswersList: React.FC<Props> = ({ commentId, addingFormIsVisible }) => {
+export const AnswersList: React.FC<Props> = ({ commentId }) => {
   const [answersFromServer, setAnswersFromServer] = useState<Comment[]>([]);
 
   const loadAnswers = async (id: string) => {
@@ -21,15 +20,17 @@ export const AnswersList: React.FC<Props> = ({ commentId, addingFormIsVisible })
 
   useEffect(() => {
     loadAnswers(commentId);
-  }, [commentId, addingFormIsVisible]);
+  }, [commentId]);
 
   return (
     <>
       {answersFromServer.map(answer => (
         <Message
           key={answer.id}
+          id={answer.id}
           text={answer.text}
           userId={answer.userId}
+          isHeadComment={false}
         />
       ))}
     </>

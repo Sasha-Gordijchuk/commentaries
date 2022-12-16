@@ -22,3 +22,7 @@ export const add = (data: unknown) => {
 export const remove = (commentId: string) => {
   return axios.delete<Comment>(`${BASE_URL}/comments/${commentId}`);
 };
+
+export const removeAllByHeadComment = (commentId: string) => {
+  return axios.patch<Comment[]>(`${BASE_URL}/comments/${commentId}`);
+};

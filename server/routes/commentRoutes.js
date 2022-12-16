@@ -12,3 +12,5 @@ router.get('/:commentId', commentController.getOne);
 router.post('/', express.json(), commentController.create);
 
 router.delete('/:commentId', commentController.remove);
+
+router.patch('/:headCommentId', commentController.removeAllByHeadComment);

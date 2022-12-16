@@ -12,6 +12,14 @@ export class Comment extends General {
 
     return result;
   };
+
+  static removeAllByHeadComment(id) {
+    Comment.destroy({
+      where: {
+        headCommentId: id,
+      },
+    });
+  }
 }
 
 Comment.init({
