@@ -1,6 +1,10 @@
+import { User } from './user';
+
 export interface Comment {
   id: string,
   text: string,
-  userId: string,
-  headCommentId: string,
+  headCommentId: string | null,
+  createdAt: Date,
+  UserId: string,
+  User: User,
 }

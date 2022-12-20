@@ -1,9 +1,9 @@
 import React from 'react';
-import { HeadComment } from '../../types/headComment';
+import { Comment } from '../../types/comment';
 import { HeadMessage } from '../HeadMessage';
 
 interface Props {
-  comments: HeadComment[],
+  comments: Comment[],
 }
 
 export const HeadCommentsList: React.FC<Props> = ({

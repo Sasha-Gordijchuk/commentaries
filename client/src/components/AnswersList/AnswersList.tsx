@@ -27,10 +27,7 @@ export const AnswersList: React.FC<Props> = ({ commentId }) => {
       {answersFromServer.map(answer => (
         <Message
           key={answer.id}
-          id={answer.id}
-          text={answer.text}
-          userId={answer.userId}
-          isHeadComment={false}
+          comment={answer}
         />
       ))}
     </>

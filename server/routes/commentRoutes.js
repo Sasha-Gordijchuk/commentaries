@@ -5,7 +5,7 @@ export const router = express.Router();
 
 router.get('/', commentController.getAll);
 
-router.get('/byHead/:headCommentId', commentController.getAllByHeadComment);
+router.get('/byHead/:headCommentId', commentController.getAll);
 
 router.get('/:commentId', commentController.getOne);
 

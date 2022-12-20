@@ -2,31 +2,25 @@
 /* eslint-disable max-len */
 /* eslint-disable no-lone-blocks */
 import React, { useState } from 'react';
-import { HeadComment } from '../../types/headComment';
 import { Comment } from '../../types/comment';
 import { AnswersList } from '../AnswersList';
 import { Message } from '../Message';
 import { AddComment } from '../AddComment';
 
 interface Props {
-  comment: Comment | HeadComment,
+  comment: Comment,
 }
 
 export const HeadMessage: React.FC<Props> = ({
   comment,
 }) => {
-  const { id, userId, text } = comment;
   const [answersIsVisible, setAnswersIsVisible] = useState<boolean>(false);
   const [addingFormIsVisible, setAddingFormIsVisible] = useState<boolean>(false);
 
   return (
     <div className="commentsBlock">
-
       <Message
-        id={id}
-        text={text}
-        userId={userId}
-        isHeadComment
+        comment={comment}
       />
       <div className="commentButtons">
         <button
@@ -50,13 +44,13 @@ export const HeadMessage: React.FC<Props> = ({
 
       {answersIsVisible && (
         <AnswersList
-          commentId={id}
+          commentId={comment.id}
         />
       )}
 
       {addingFormIsVisible && (
         <AddComment
-          headCommentId={id}
+          headCommentId={comment.id}
           setAddingFormIsVisible={setAddingFormIsVisible}
         />
       )}

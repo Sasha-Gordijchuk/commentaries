@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 import { Model } from 'sequelize';
 
-export class General extends Model {
+export class CommentUser extends Model {
   static createTable() {
     try {
       this.sync({ alter: true });
@@ -20,8 +20,8 @@ export class General extends Model {
     return result;
   };
 
-  static add(user) {
-    this.create(user);
+  static add(item) {
+    this.create(item);
   };
 
   static remove(id) {

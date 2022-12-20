@@ -1,17 +1,20 @@
+/* eslint-disable no-console */
 import { DataTypes } from 'sequelize';
 import { sequelize } from '../utils/db.js';
-import { General } from './GeneralModel.js';
+import { CommentUser } from './CommentUser.js';
+import { User } from './userModel.js';
 
-export class Comment extends General {
-  static async getAllByHeadComment(id) {
-    const result = await Comment.findAll({
+export class Comment extends CommentUser {
+  static async getAll(id = null) {
+    const comments = await Comment.findAll({
+      include: User,
       where: {
         headCommentId: id,
       },
     });
 
-    return result;
-  };
+    return comments;
+  }
 
   static removeAllByHeadComment(id) {
     Comment.destroy({
@@ -32,14 +35,11 @@ Comment.init({
     type: DataTypes.TEXT,
     allowNull: false,
   },
-  userId: {
-    type: DataTypes.UUID,
-    allowNull: false,
-  },
   headCommentId: {
     type: DataTypes.UUID,
-    allowNull: false,
+    allowNull: true,
   },
 }, {
   sequelize,
+  updatedAt: false,
 });

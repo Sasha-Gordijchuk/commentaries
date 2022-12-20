@@ -1,9 +1,9 @@
 /* eslint-disable no-console */
 import { DataTypes } from 'sequelize';
 import { sequelize } from '../utils/db.js';
-import { General } from './GeneralModel.js';
+import { CommentUser } from './CommentUser.js';
 
-export class User extends General {}
+export class User extends CommentUser {}
 
 User.init({
   id: {
@@ -25,4 +25,6 @@ User.init({
   },
 }, {
   sequelize,
+  createdAt: false,
+  updatedAt: false,
 });

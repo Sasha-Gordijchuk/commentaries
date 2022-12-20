@@ -1,6 +1,5 @@
 /* eslint-disable no-console */
 import React, { useRef } from 'react';
-import * as headCommentApi from '../../api/headComments';
 import * as commentApi from '../../api/comments';
 import * as userApi from '../../api/users';
 
@@ -52,13 +51,7 @@ export const AddComment: React.FC<Props> = ({
         headCommentId,
       };
 
-      if (newComment.headCommentId) {
-        console.log(newComment);
-        commentApi.add(newComment);
-      } else {
-        console.log(newComment);
-        headCommentApi.add(newComment);
-      }
+      commentApi.add(newComment);
     }
 
     setAddingFormIsVisible(false);

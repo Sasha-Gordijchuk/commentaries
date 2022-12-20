@@ -2,15 +2,8 @@
 import { Comment } from '../models/commentModel.js';
 
 export const getAll = async(req, res) => {
-  const result = await Comment.getAll();
-
-  res.send(result);
-};
-
-export const getAllByHeadComment = async(req, res) => {
   const { headCommentId } = req.params;
-
-  const result = await Comment.getAllByHeadComment(headCommentId);
+  const result = await Comment.getAll(headCommentId);
 
   res.send(result);
 };
@@ -29,9 +22,11 @@ export const getOne = async(req, res) => {
 };
 
 export const create = (req, res) => {
-  const { text, userId, headCommentId } = req.body;
+  const { text, UserId, headCommentId } = req.body;
 
-  if (!text || !userId || !headCommentId) {
+  console.log(req.body);
+
+  if (!text || !UserId) {
     res.sendStatus(422);
 
     return;
@@ -39,8 +34,8 @@ export const create = (req, res) => {
 
   const newComment = {
     text,
-    userId,
     headCommentId,
+    UserId,
   };
 
   Comment.add(newComment);
