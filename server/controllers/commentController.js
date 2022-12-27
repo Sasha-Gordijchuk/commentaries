@@ -3,7 +3,22 @@ import { Comment } from '../models/commentModel.js';
 
 export const getAll = async(req, res) => {
   const { headCommentId } = req.params;
-  const result = await Comment.getAll(headCommentId);
+  const { sortType, sortOrder } = req.query;
+  let result;
+
+  console.log(req.query);
+
+  if (headCommentId) {
+    result = await Comment.getAnswers();
+  }
+
+  if (sortType) {
+    result = await Comment.getSortedComments(sortType, sortOrder);
+  }
+
+  if (!headCommentId && !sortType) {
+    result = await Comment.getHeadComments(headCommentId);
+  }
 
   res.send(result);
 };

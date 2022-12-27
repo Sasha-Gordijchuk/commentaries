@@ -7,14 +7,32 @@ import './style.css';
 import { HeadCommentsList } from './components/HeadCommentsList';
 import { AddComment } from './components/AddComment';
 import { Comment } from './types/comment';
+import { SortOrder, SortType } from './types/sortType';
 
 export const App: React.FC = () => {
   const [commentsFromServer, setCommentsFromServer] = useState<Comment[]>([]);
-  // const [sortingComments, setSortingComments] = useState<HeadComment[]>([]);
   const [addingFormIsVisible, setAddingFormIsVisible] = useState<boolean>(false);
+  const [sortingType, setSortingType] = useState<SortType>(SortType.Date);
+  const [sortingOrder, setSortingOrder] = useState<SortOrder>('ASC');
 
   const loadHeadComments = async () => {
     const comments = await commentApi.getAll();
+
+    setCommentsFromServer(comments.data);
+  };
+
+  const handleTypeChange = (event: any) => {
+    setSortingType(event.target.value);
+  };
+
+  const handleOrderChange = (event: any) => {
+    setSortingOrder(event.target.value);
+  };
+
+  const handleSubmit = async () => {
+    const comments = await commentApi.getSortedComments(sortingType, sortingOrder);
+
+    console.log('submit');
 
     setCommentsFromServer(comments.data);
   };
@@ -23,17 +41,31 @@ export const App: React.FC = () => {
     loadHeadComments();
   }, []);
 
+  useEffect(() => {},
+    [commentsFromServer]);
+
   return (
     <div className="App">
       <header className="header">
-        {/* <select
-          name="sorting"
-          id="sorting"
-        >
-          <option value={SortBy.Date} onClick={handleChange}>Date</option>
-          <option value={SortBy.UserName} onClick={handleChange}>UserName</option>
-          <option value={SortBy.Email} onClick={handleChange}>Email</option>
-        </select> */}
+        <form>
+          <select value={sortingType} onChange={handleTypeChange}>
+            <option value={SortType.Date}>Date</option>
+            <option value={SortType.UserName}>UserName</option>
+            <option value={SortType.Email}>Email</option>
+          </select>
+
+          <select value={sortingOrder} onChange={handleOrderChange}>
+            <option value="ASC">ASC</option>
+            <option value="DESC">DESC</option>
+          </select>
+
+          <button
+            type="button"
+            onClick={() => handleSubmit()}
+          >
+            Sort
+          </button>
+        </form>
 
         <button
           onClick={() => setAddingFormIsVisible(true)}
@@ -47,12 +79,14 @@ export const App: React.FC = () => {
         comments={commentsFromServer}
       />
 
-      {addingFormIsVisible && (
-        <AddComment
-          headCommentId={null}
-          setAddingFormIsVisible={setAddingFormIsVisible}
-        />
-      )}
+      {
+        addingFormIsVisible && (
+          <AddComment
+            headCommentId={null}
+            setAddingFormIsVisible={setAddingFormIsVisible}
+          />
+        )
+      }
     </div>
   );
 };

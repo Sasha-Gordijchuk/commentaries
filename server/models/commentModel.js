@@ -5,12 +5,57 @@ import { CommentUser } from './CommentUser.js';
 import { User } from './userModel.js';
 
 export class Comment extends CommentUser {
-  static async getAll(id = null) {
+  static async getHeadComments() {
+    const comments = await Comment.findAll({
+      include: User,
+      where: {
+        headCommentId: null,
+      },
+      order: [
+        ['createdAt', 'DESC'],
+      ],
+    });
+
+    return comments;
+  }
+
+  static async getSortedComments(sortType, sortOrder) {
+    if (sortType === 'createdAt') {
+      const comments = await Comment.findAll({
+        include: User,
+        where: {
+          headCommentId: null,
+        },
+        order: [
+          [sortType, sortOrder],
+        ],
+      });
+
+      return comments;
+    } else {
+      const comments = await Comment.findAll({
+        include: User,
+        where: {
+          headCommentId: null,
+        },
+        order: [
+          [Comment.associations.User, sortType, sortOrder],
+        ],
+      });
+
+      return comments;
+    }
+  }
+
+  static async getAnswers(id) {
     const comments = await Comment.findAll({
       include: User,
       where: {
         headCommentId: id,
       },
+      order: [
+        ['createdAt', 'ASC'],
+      ],
     });
 
     return comments;

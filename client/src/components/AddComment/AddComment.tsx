@@ -47,7 +47,7 @@ export const AddComment: React.FC<Props> = ({
     if (user) {
       newComment = {
         text: messageField.current?.value,
-        userId: user.id,
+        UserId: user.id,
         headCommentId,
       };
 

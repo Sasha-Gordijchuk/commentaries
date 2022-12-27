@@ -2,6 +2,7 @@
 /* eslint-disable jsx-a11y/control-has-associated-label */
 import React from 'react';
 import { Comment } from '../../types/comment';
+import * as commentApi from '../../api/comments';
 
 interface Props {
   comment: Comment;
@@ -11,21 +12,16 @@ export const Message: React.FC<Props> = ({ comment }) => {
   const {
     id,
     text,
+    headCommentId,
     User,
   } = comment;
-  // const handleRemove = () => {
-  //   if (isHeadComment) {
-  //     commentApi.removeAllByHeadComment(id);
-  //   }
+  const handleRemove = () => {
+    if (!headCommentId) {
+      commentApi.removeAllByHeadComment(id);
+    }
 
-  //   commentApi.remove(id);
-  // };
-
-  // useEffect(() => {
-  //   if (userId) {
-  //     loadUser(userId);
-  //   }
-  // }, [userId]);
+    commentApi.remove(id);
+  };
 
   return (
     <div className="card">
@@ -50,7 +46,7 @@ export const Message: React.FC<Props> = ({ comment }) => {
           <button
             type="button"
             className="delete"
-            // onClick={() => handleRemove()}
+            onClick={() => handleRemove()}
           />
         </div>
 
