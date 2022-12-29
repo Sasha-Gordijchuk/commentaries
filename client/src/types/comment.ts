@@ -7,4 +7,5 @@ export interface Comment {
   createdAt: Date,
   UserId: string,
   User: User,
+  filePath: string | null,
 }

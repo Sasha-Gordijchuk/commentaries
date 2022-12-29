@@ -38,6 +38,7 @@ export const getOne = async(req, res) => {
 
 export const create = (req, res) => {
   const { text, UserId, headCommentId } = req.body;
+  const file = req.files.file;
 
   console.log(req.body);
 
@@ -47,10 +48,30 @@ export const create = (req, res) => {
     return;
   }
 
+  let newFileName;
+  let newFilePath;
+
+  if (file) {
+    newFileName = encodeURI(Date.now() + '-' + file.name);
+    newFilePath = `./files/${newFileName}`;
+
+    file.mv(newFilePath, err => {
+      if (err) {
+        console.error(err);
+      }
+    });
+  }
+
+  console.log('==================');
+  console.log(newFileName);
+  console.log(newFilePath);
+  console.log('==================');
+
   const newComment = {
     text,
-    headCommentId,
+    headCommentId: headCommentId || null,
     UserId,
+    filePath: newFilePath || null,
   };
 
   Comment.add(newComment);

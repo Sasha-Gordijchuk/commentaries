@@ -9,7 +9,7 @@ router.get('/byHead/:headCommentId', commentController.getAll);
 
 router.get('/:commentId', commentController.getOne);
 
-router.post('/', express.json(), commentController.create);
+router.post('/', commentController.create);
 
 router.delete('/:commentId', commentController.remove);
 

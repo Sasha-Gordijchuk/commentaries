@@ -14,7 +14,14 @@ export const Message: React.FC<Props> = ({ comment }) => {
     text,
     headCommentId,
     User,
+    filePath,
   } = comment;
+  let fileIsText = false;
+
+  if (filePath?.slice(-3) === 'txt') {
+    fileIsText = true;
+  }
+
   const handleRemove = () => {
     if (!headCommentId) {
       commentApi.removeAllByHeadComment(id);
@@ -52,6 +59,12 @@ export const Message: React.FC<Props> = ({ comment }) => {
 
         <div className="content">
           {text}
+
+          <br />
+
+          {filePath && fileIsText
+            ? (<a href={`${commentApi.BASE_URL}/${filePath}`} download>{filePath.slice(22)}</a>)
+            : (<img src={`${commentApi.BASE_URL}/${filePath}`} alt={filePath || ''} />)}
           <br />
           {User.homepage && (
             <a href={User.homepage}>{User.homepage}</a>

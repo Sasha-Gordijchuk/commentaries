@@ -32,17 +32,12 @@ export const App: React.FC = () => {
   const handleSubmit = async () => {
     const comments = await commentApi.getSortedComments(sortingType, sortingOrder);
 
-    console.log('submit');
-
     setCommentsFromServer(comments.data);
   };
 
   useEffect(() => {
     loadHeadComments();
   }, []);
-
-  useEffect(() => {},
-    [commentsFromServer]);
 
   return (
     <div className="App">

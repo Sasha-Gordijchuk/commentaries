@@ -1,7 +1,8 @@
 /* eslint-disable no-console */
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import * as commentApi from '../../api/comments';
 import * as userApi from '../../api/users';
+import { UploadFile } from '../UploadFile';
 
 interface Props {
   headCommentId: string | null;
@@ -16,8 +17,7 @@ export const AddComment: React.FC<Props> = ({
   const emailField = useRef<HTMLInputElement>(null);
   const homepageField = useRef<HTMLInputElement>(null);
   const messageField = useRef<HTMLTextAreaElement>(null);
-
-  console.log(headCommentId);
+  const [selectedFile, setSelectedFile] = useState<any>(null);
 
   const findUser = async (param: string, value = '') => {
     try {
@@ -30,6 +30,7 @@ export const AddComment: React.FC<Props> = ({
   };
 
   const handleSubmit = async () => {
+    const formData = new FormData();
     const newUser = {
       name: userNameField.current?.value,
       email: emailField.current?.value,
@@ -46,13 +47,21 @@ export const AddComment: React.FC<Props> = ({
 
     if (user) {
       newComment = {
-        text: messageField.current?.value,
+        text: messageField.current?.value || '',
         UserId: user.id,
-        headCommentId,
+        headCommentId: headCommentId || '',
       };
 
-      commentApi.add(newComment);
+      formData.append('text', newComment.text);
+      formData.append('UserId', newComment.UserId);
+      formData.append('headCommentId', newComment.headCommentId);
     }
+
+    if (selectedFile) {
+      formData.append('file', selectedFile);
+    }
+
+    commentApi.add(formData);
 
     setAddingFormIsVisible(false);
   };
@@ -132,6 +141,11 @@ export const AddComment: React.FC<Props> = ({
               />
             </div>
           </div>
+
+          <UploadFile
+            selectedFile={selectedFile}
+            setSelectedFile={setSelectedFile}
+          />
 
         </section>
         <footer className="modal-card-foot">

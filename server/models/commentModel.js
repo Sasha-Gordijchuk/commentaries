@@ -84,6 +84,10 @@ Comment.init({
     type: DataTypes.UUID,
     allowNull: true,
   },
+  filePath: {
+    type: DataTypes.STRING,
+    allowNull: true,
+  },
 }, {
   sequelize,
   updatedAt: false,
